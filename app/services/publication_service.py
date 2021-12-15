@@ -27,7 +27,6 @@ class PublicationService:
         upload_result = cloudinary.uploader.upload(file)
         url = upload_result["url"]
         public_id = upload_result["public_id"]
-        print(author)
         new_publication = Publication(
             title=title, 
             content=content,
