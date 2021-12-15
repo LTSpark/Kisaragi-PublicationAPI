@@ -8,3 +8,4 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: Optional[str] = None
+    name: Optional[str] = None

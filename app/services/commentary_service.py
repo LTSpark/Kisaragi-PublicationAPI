@@ -12,7 +12,7 @@ class CommentaryService:
     Class with methods to manage commentaries operation
     '''
     @staticmethod
-    async def create_commentary(publication_id, author_id, commentary):
+    async def create_commentary(publication_id, author, commentary):
         publication_obj = Publication.objects(
             id=publication_id,
         ).first()
@@ -20,7 +20,8 @@ class CommentaryService:
         if publication_obj is None:
             raise HTTPException(status_code=400, detail="Publication not found")
         new_commentary = Commentary(
-            author_id=author_id,
+            author_id=author.id,
+            author_name=author.name,
             commentary=commentary
         )
         publication_obj.commentaries.append(new_commentary)

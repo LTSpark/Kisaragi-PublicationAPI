@@ -13,7 +13,7 @@ async def create_commentary(
     commentary: str = Form(...),
     publication_id: str = Form(...)
 ):
-    return await CommentaryService.create_commentary(publication_id, payload.id, commentary)
+    return await CommentaryService.create_commentary(publication_id, payload, commentary)
 
 @commentaries_router.delete("/commentaries/{id}", tags=["Commentaries"] )
 async def delete_commentary(id: str,payload: TokenData = Depends(get_token_payload), publication_id: str = Form(...)):

@@ -23,14 +23,16 @@ class PublicationService:
     Class with methods to manage publication operations
     '''
     @staticmethod
-    async def create_publication(author_id, title, content, file):
+    async def create_publication(author, title, content, file):
         upload_result = cloudinary.uploader.upload(file)
         url = upload_result["url"]
         public_id = upload_result["public_id"]
+        print(author)
         new_publication = Publication(
             title=title, 
             content=content,
-            author_id=author_id,
+            author_id=author.id,
+            author_name=author.name,
             img_url=url,
             img_public_id=public_id
         )       

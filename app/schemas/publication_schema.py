@@ -6,6 +6,7 @@ from pydantic import BaseModel
 class Commentary(BaseModel):
     commentary_id: str
     author_id: str
+    author_name: str
     commentary: str
     created_at: date
 
@@ -14,6 +15,7 @@ class Publication(BaseModel):
     title: str
     content: str
     author_id: str
+    author_name: str
     img_url: str
     commentaries: Optional[List[Commentary]] = None
     created_at: date

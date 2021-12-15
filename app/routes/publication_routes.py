@@ -16,7 +16,7 @@ async def post_publication(
     file: Optional[UploadFile] = File(...)
 ):
     file_readed = await file.read()
-    await PublicationService.create_publication(payload.id, title, content, file_readed)
+    await PublicationService.create_publication(payload, title, content, file_readed)
     return { "msg": "Publication created successfully" }
 
 @publications_router.delete("/publications/{id}", tags=["Publications"])

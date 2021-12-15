@@ -9,12 +9,14 @@ class Commentary(EmbeddedDocument):
     '''
     _id = ObjectIdField( required=True, default=ObjectId )
     author_id = StringField(required=True)
+    author_name = StringField(required=True)
     commentary = StringField(required=True, max_length=100)
     created_at = DateField(default=datetime.utcnow)
     def to_dict(self):
         commentary_dict = {
             "commentary_id": str(self._id),
             "author_id": self.author_id,
+            "author_name": self.author_name,
             "commentary": self.commentary,
             "created_at": self.created_at
         }
