@@ -14,3 +14,15 @@ class Publication(Document):
     img_public_id = StringField(required=False, default="")
     commentaries = EmbeddedDocumentListField(Commentary)
     created_at = DateField(default=datetime.now())
+
+    def to_json(self):
+        publication_dict = {
+            "publication_id": str(self.pk),
+            "title": self.title,
+            "content": self.content,
+            "author_id": self.author_id,
+            "img_url": self.img_url,
+            "created_at": self.created_at,
+            "commentaries": self.commentaries
+        }
+        return publication_dict
