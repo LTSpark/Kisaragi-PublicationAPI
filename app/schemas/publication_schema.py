@@ -4,13 +4,13 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 class Commentary(BaseModel):
-    _id: str
-    commentary: str
+    commentary_id: str
     author_id: str
+    commentary: str
     created_at: date
 
 class Publication(BaseModel):
-    _id: str
+    publication_id: str
     title: str
     content: str
     author_id: str

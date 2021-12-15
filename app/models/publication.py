@@ -13,7 +13,7 @@ class Publication(Document):
     img_url = StringField(required=False, default="")
     img_public_id = StringField(required=False, default="")
     commentaries = EmbeddedDocumentListField(Commentary)
-    created_at = DateField(default=datetime.now())
+    created_at = DateField(default=datetime.utcnow)
 
     def to_json(self):
         publication_dict = {
@@ -23,6 +23,6 @@ class Publication(Document):
             "author_id": self.author_id,
             "img_url": self.img_url,
             "created_at": self.created_at,
-            "commentaries": self.commentaries
+            "commentaries": list(map(lambda commentary: commentary.to_dict(), self.commentaries))
         }
         return publication_dict
