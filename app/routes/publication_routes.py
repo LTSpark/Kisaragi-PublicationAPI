@@ -24,10 +24,14 @@ async def delete_publication(id: str, payload: TokenData = Depends(get_token_pay
     message = await PublicationService.delete_publication(id, payload.id)
     return { "msg": message }
 
-@publications_router.get("/publications/{id}", tags=["Publications"], response_model=Publication)
+@publications_router.get("/publications/{id}/id", tags=["Publications"], response_model=Publication)
 async def get_publication(id: str):
     return await PublicationService.get_publication(id)
 
 @publications_router.get("/publications", tags=["Publications"], response_model=list[Publication])
 async def get_publications(skip: int = 0, limit: int = 5):
     return await PublicationService.get_publications(skip, limit)
+
+@publications_router.get("/publications/hashtags", tags=["Publications"], response_model=list[Publication])
+async def get_publications_by_hashtag(skip: int = 0, limit: int = 5):
+    return await PublicationService.get_publications_by_hashtag(skip, limit, "go")

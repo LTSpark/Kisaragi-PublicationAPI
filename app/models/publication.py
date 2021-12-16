@@ -12,6 +12,7 @@ class Publication(Document):
     content = StringField(required=True, max_length=256)
     img_url = StringField(required=False, default="")
     img_public_id = StringField(required=False, default="")
+    hashtags = ListField(StringField())
     commentaries = EmbeddedDocumentListField(Commentary)
     created_at = DateField(default=datetime.utcnow)
 
@@ -23,6 +24,7 @@ class Publication(Document):
             "author_id": self.author_id,
             "img_url": self.img_url,
             "created_at": self.created_at,
+            "hashtags": self.hashtags,
             "commentaries": list(map(lambda commentary: commentary.to_dict(), self.commentaries))
         }
         return publication_dict

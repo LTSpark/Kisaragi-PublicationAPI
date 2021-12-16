@@ -15,5 +15,6 @@ class Publication(BaseModel):
     content: str
     author_id: str
     img_url: str
+    hashtags: List[str]
     commentaries: Optional[List[Commentary]] = None
     created_at: date

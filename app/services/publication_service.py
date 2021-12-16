@@ -27,12 +27,14 @@ class PublicationService:
         upload_result = cloudinary.uploader.upload(file, folder="kisaragi_publications")
         url = upload_result["url"]
         public_id = upload_result["public_id"]
+        hashtags = list({hashtag.strip("#") for hashtag in content.split() if hashtag.startswith("#")})
         new_publication = Publication(
             title=title, 
             content=content,
             author_id=author.id,
             img_url=url,
-            img_public_id=public_id
+            img_public_id=public_id,
+            hashtags=hashtags
         )       
         new_publication.save()
     
@@ -42,7 +44,6 @@ class PublicationService:
             id=publication_id,
             author_id=author_id
         ).first()
-
         if publication_obj is not None:
             cloudinary.uploader.destroy(publication_obj.img_public_id)
             publication_obj.delete()
@@ -56,12 +57,20 @@ class PublicationService:
         ).first()
 
         if publication_obj is not None:
+            print(publication_obj.hashtags)
             return publication_obj.to_json()
         raise HTTPException(status_code=400, detail="Publication not found")
     
     @staticmethod
     async def get_publications(skip, limit):
         publication_objs = Publication.objects().limit(limit).skip(skip)
+        publications = []
+        publications = list(map(lambda publication_obj: publication_obj.to_json(), publication_objs))
+        return publications
+    
+    @staticmethod
+    async def get_publications_by_hashtag(skip, limit, hashtag):
+        publication_objs = Publication.objects(hashtags__in=[hashtag]).limit(limit).skip(skip)
         publications = []
         publications = list(map(lambda publication_obj: publication_obj.to_json(), publication_objs))
         return publications
