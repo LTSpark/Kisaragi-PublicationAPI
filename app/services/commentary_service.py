@@ -1,4 +1,3 @@
-from bson import ObjectId
 from fastapi import HTTPException
 
 from app.database.config import connect_database
