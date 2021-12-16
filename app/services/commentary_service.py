@@ -40,7 +40,7 @@ class CommentaryService:
         
         commentary = commentary_list[0]
         publication_obj.commentaries.remove(commentary)
-        #publication_obj.save()
+        publication_obj.save()
 
         return { "msg": "Commentary deleted successfully" }
 
