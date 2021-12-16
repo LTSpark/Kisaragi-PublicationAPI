@@ -33,5 +33,5 @@ async def get_publications(skip: int = 0, limit: int = 5):
     return await PublicationService.get_publications(skip, limit)
 
 @publications_router.get("/publications/hashtags", tags=["Publications"], response_model=list[Publication])
-async def get_publications_by_hashtag(skip: int = 0, limit: int = 5):
-    return await PublicationService.get_publications_by_hashtag(skip, limit, "go")
+async def get_publications_by_hashtag(skip: int = 0, limit: int = 5, hashtag: str = None):
+    return await PublicationService.get_publications_by_hashtag(skip, limit, hashtag)
