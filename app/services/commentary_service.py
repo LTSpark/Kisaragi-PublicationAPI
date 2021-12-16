@@ -33,14 +33,14 @@ class CommentaryService:
         if publication_obj is None:
             raise HTTPException(status_code=400, detail="Publication not found")
 
-        commentary_list = publication_obj.commentaries.filter(_id=commentary_id)
+        commentary_list = publication_obj.commentaries.filter(_id=commentary_id, author_id=author_id)
 
         if not commentary_list:
             raise HTTPException(status_code=400, detail="Commentary not found")
         
         commentary = commentary_list[0]
         publication_obj.commentaries.remove(commentary)
-        publication_obj.save()
+        #publication_obj.save()
 
         return { "msg": "Commentary deleted successfully" }
 
