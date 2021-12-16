@@ -21,7 +21,6 @@ class CommentaryService:
             raise HTTPException(status_code=400, detail="Publication not found")
         new_commentary = Commentary(
             author_id=author.id,
-            author_name=author.name,
             commentary=commentary
         )
         publication_obj.commentaries.append(new_commentary)

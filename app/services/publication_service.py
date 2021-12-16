@@ -24,14 +24,13 @@ class PublicationService:
     '''
     @staticmethod
     async def create_publication(author, title, content, file):
-        upload_result = cloudinary.uploader.upload(file)
+        upload_result = cloudinary.uploader.upload(file, folder="kisaragi_publications")
         url = upload_result["url"]
         public_id = upload_result["public_id"]
         new_publication = Publication(
             title=title, 
             content=content,
             author_id=author.id,
-            author_name=author.name,
             img_url=url,
             img_public_id=public_id
         )       
@@ -66,4 +65,4 @@ class PublicationService:
         publications = []
         publications = list(map(lambda publication_obj: publication_obj.to_json(), publication_objs))
         return publications
-    
+
